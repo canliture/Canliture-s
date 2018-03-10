@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>3DataLinkLayer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<base href='file:\\\F:\NRX\网络\第一阶段（10套）\网络与信息安全工程师职业学习路线图\4、韩老师讲高校《计算机网络原理》视频课程\'/>
+</head>
+<body>
+<h2>DataLink</h2>
+<h3>基本概念，三个基本问题</h3>
+<p>仅仅关心数据帧的传递 <br/>
+  数据链路层使用的信道主要有以下两种类型： 点对点信道，广播信道   <br/>
+  <strong>链路:</strong>点到点的物理线路段，链路是一条通路的一个组成部分。      <br/>
+  <strong>数据链路:</strong>除了物理线路外，还必须要通信协议来控制这些数据的传输。把实现这些协议的软件和硬件加到链路上，就构成了数据链路。常用适配器即网卡实现这些协议的硬件和软件。  <br/></p>
+<p><img src="https://i.imgur.com/TddiCOt.png" /></p>
+<p><strong>三个基本问题：</strong>封装成帧，透明传输，差错控制。  <br/></p>
+<p><strong>封装成帧：</strong>数据添加首尾，确定帧的界限。       <br/></p>
+<p><img src="https://i.imgur.com/LUi8j4F.png" /></p>
+<p><strong>透明传输：</strong>头和尾的数据不能存在于帧数据中               <br/></p>
+<p><strong>差错控制：</strong> 循环冗余检验(CRC)广泛用于数据差错检验。</p>
+<p><strong><em>*CRC算法掌握</em></strong>   <br/></p>
+<h3>使用场景</h3>
+<p><strong>1.点到点PPP(PointToPointProtocol)：</strong>一种应用场合：家庭直接拨号到ISP请求上网。 <br/>
+  <strong>特性：</strong>
+  简单，封装成帧，透明性，支持多种网络层协议，支持多种类型链路（多种传输线路），差错检验，检查连接状态，最大传送单元，网络层地址协商，数据压缩协商。             <br/>
+  <strong>组成：</strong>网络控制协议(NCP)，链路控制协议(LCP)，高级数据链路控制协议(HDLC)。     <br/>
+  <strong>透明传输的两种方法:</strong>字节填充（转义），零比特填充。           <br/>
+  <strong>PPP工作状态：</strong>  <br/></p>
+<p><img src="https://i.imgur.com/sDkf6qV.png" /></p>
+<p><strong>2.广播信道的数据链路层：</strong>  <br/></p>
+<p><strong><em>局域网拓扑：</em></strong><em>星形网<em>，</em>环型网</em>，<em>总线型</em>，<em>树形网</em>。目前主要以星型网为主。  <br/>
+  <strong><em>与广域网区别：</em></strong>花钱租带宽，花钱买设备。    <br/>
+  <strong><em>局域网优点与特点：</em></strong>单位拥有，地理范围，站点数目有限。广播功能；便于扩展和演变，设备位置灵活调整  <br/>
+  <strong><em>共享通信媒体：</em></strong>静态信道划分不适用（XX复用）。动态媒体介入控制（多点接入）：随机接入主要被以太网采用   <br/>
+  <strong><em>以太网通信协议：</em></strong>载波监听多点接入/碰撞监测（CSMA/CD协议）。多点接入，计算机以多点接入的方式连接在一根总线上。载波监听：发送数据之前要监测总线是否有其他计算机在发送数据，如果有，暂时不发送，以免发生碰撞（防止数据信号叠加）。只能以 <em>半双工通信</em>。</p>
+<p><img src="https://i.imgur.com/sMsjG5o.png" /></p>
+<p><img src="https://i.imgur.com/p7RHkYI.png" /></p>
+<h3>以太局域网</h3>
+<p><strong>1.概述：</strong>以太网两标准；以太网与数据链路层的两个子层：逻辑链路控制（LLC），媒体介入控制（MAC）。  <br/>
+  <strong><em>以太网提供的服务：</em></strong>以太网提供的服务是不可靠的交付，即尽最大努力的交付；当接收站收到有差错的数据帧时就丢弃此帧，其他什么也不做。差错的纠正由高层来决定。例如：高层发现丢失一些数据而进行重传，但以太网并不知道这是一个重传的帧，而是当作一个新的数据帧来发送。  <br/></p>
+<p><strong>2.拓扑：</strong>中心设备集线器（已弃用），所有机器连在集线器上；逻辑上仍然是一个总线网，各工作使用的还是CSMA/CD协议，并共享逻辑上的总线；很像多接口转发器，工作在物理层。  <br/></p>
+<p><strong>3.信道利用率：</strong></p>
+<p><img src="https://i.imgur.com/64YVa7w.png" /></p>
+<p><img src="https://i.imgur.com/Aqb7K8H.png" /></p>
+<p><img src="https://i.imgur.com/5OD3YO6.png" /></p>
+<p><img src="https://i.imgur.com/O2EfqAj.png" /></p>
+<p><strong>4.MAC层：</strong>  <br/></p>
+<p><strong><em>MAC层的硬件地址（MAC地址）：</em></strong>厂家3个字节，高24位；厂家指派后三个字节，低24位；  <br/>
+  <strong><em>适配器检查MAC地址：</em></strong>适配器从网络上收到MAC帧，首先用硬件检查MAC帧中的MAC地址查看是否是发往本站的帧。如果是则收下做进一步处理，不是则丢弃且不做处理。                   <br/></p>
+<p><strong><em>掌握查看MAC地址与“修改MAC地址”</em></strong>  <br/>  </p>
+<p><strong><em>发往本站的帧：</em></strong>单播帧，一对一；广播帧（48位全1），一对全体；多播帧，一对多；  <br/>
+  <strong><em>MAC帧格式：</em></strong>  <br/></p>
+<p><em>两种标准以太网的帧格式：</em></p>
+<p><img src="https://i.imgur.com/yO1mL4M.png" /></p>
+<p><img src="https://i.imgur.com/SkiMZ3l.png" /></p>
+<h3>扩展以太网</h3>
+<p><strong>1.在物理层考虑扩展：</strong>主机使用光纤和一对光纤调制解调器（光电转换）连接到集线器；考虑更大的集线器。  <br/></p>
+<p><img src="https://i.imgur.com/YsZpsNs.png" /></p>
+<p><img src="https://i.imgur.com/oVFYOwx.png" /></p>
+<p><strong><em>物理层考虑扩展的优缺点：</em></strong>优点，跨碰撞域通信，扩大局域网覆盖地理范围；缺点：冲突域增大了，总吞吐量未提高，如果不同碰撞域使用不同的数据率，就不能用集线器将它们互联起来。</p>
+<p><em>不宜使用上面的模型。虽然能跨更远的距离传输，但是冲突问题更加严重。只要这16台机器中任意两台通信，其它的机器就不能通信了。</em>  <br/>   </p>
+<p><strong>2.数据链路层扩展：</strong>使用<strong><em>网桥</em></strong>  <br/></p>
+<p><img src="https://i.imgur.com/QuD9UVg.png" /></p>
+<p><img src="https://i.imgur.com/zckyDUU.png" /></p>
+<p><strong><em>网桥的自学习算法：</em></strong>   <br/></p>
+<p><img src="https://i.imgur.com/sv1Xit2.png" /></p>
+<p><strong><em>交换机：</em></strong>网桥的口直接接计算机，那么每台计算机都单独成一个冲突域；足够多接口的网桥演变成现在的交换机；交换机就是高速的网桥；</p>
+<p><strong><em>*PacketTracer实践：查看交换机MAC地址表</em></strong></p>
+<p><strong><em>*网桥的生成树算法：</em></strong>防止转发的帧不断地在网络中转形成环，白白浪费网络资源。</p>
+<p><strong><em>*PacketTracer实践：在交换机上实现生成树算法。并且查看交换机的生成树。更改生成树成员优先级。</em></strong></p>
+<p><strong><em>虚拟局域网（VLAN）：</em></strong>局域网提供给用户的一种服务，并非一种新型的局域网。</p>
+<p><img src="https://i.imgur.com/mMdcEQ8.png" /></p>
+<p><img src="https://i.imgur.com/IVXOmxX.png" /></p>
+<p><strong><em>*PacketTracer实践：交换机上创建并管理VLAN</em></strong></p>
+<p><strong><em>VLAN干道链路与访问链路...</em></strong></p>
+<h3>高速以太网</h3>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
