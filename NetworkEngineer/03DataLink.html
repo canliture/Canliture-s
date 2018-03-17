@@ -3,6 +3,7 @@
 <head>
 <title>3DataLinkLayer</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
 /* Author: Nicolas Hery - http://nicolashery.com */
@@ -288,6 +289,17 @@ table tr:nth-child(2n) {
 img {
   max-width: 100%
 }
+
+/*Myself Definition 
+=============================================================================*/
+img{
+  display: block;
+  margin: 0 auto;
+}
+
+
+
+
 </style>
 <base href='file:\\\F:\NRX\网络\第一阶段（10套）\网络与信息安全工程师职业学习路线图\4、韩老师讲高校《计算机网络原理》视频课程\'/>
 </head>
@@ -333,7 +345,8 @@ img {
 <p><strong>4.MAC层：</strong>  <br/></p>
 <p><strong><em>MAC层的硬件地址（MAC地址）：</em></strong>厂家3个字节，高24位；厂家指派后三个字节，低24位；  <br/>
   <strong><em>适配器检查MAC地址：</em></strong>适配器从网络上收到MAC帧，首先用硬件检查MAC帧中的MAC地址查看是否是发往本站的帧。如果是则收下做进一步处理，不是则丢弃且不做处理。                   <br/></p>
-<p><strong><em>掌握查看MAC地址与“修改MAC地址”</em></strong>  <br/>  </p>
+<p><strong><em>掌握查看MAC地址与“修改MAC地址”</em></strong>  <br/>  
+</p>
 <p><strong><em>发往本站的帧：</em></strong>单播帧，一对一；广播帧（48位全1），一对全体；多播帧，一对多；  <br/>
   <strong><em>MAC帧格式：</em></strong>  <br/></p>
 <p><em>两种标准以太网的帧格式：</em></p>
@@ -344,7 +357,8 @@ img {
 <p><img src="https://i.imgur.com/YsZpsNs.png" /></p>
 <p><img src="https://i.imgur.com/oVFYOwx.png" /></p>
 <p><strong><em>物理层考虑扩展的优缺点：</em></strong>优点，跨碰撞域通信，扩大局域网覆盖地理范围；缺点：冲突域增大了，总吞吐量未提高，如果不同碰撞域使用不同的数据率，就不能用集线器将它们互联起来。</p>
-<p><em>不宜使用上面的模型。虽然能跨更远的距离传输，但是冲突问题更加严重。只要这16台机器中任意两台通信，其它的机器就不能通信了。</em>  <br/>   </p>
+<p><em>不宜使用上面的模型。虽然能跨更远的距离传输，但是冲突问题更加严重。只要这16台机器中任意两台通信，其它的机器就不能通信了。</em>  <br/>   
+</p>
 <p><strong>2.数据链路层扩展：</strong>使用<strong><em>网桥</em></strong>  <br/></p>
 <p><img src="https://i.imgur.com/QuD9UVg.png" /></p>
 <p><img src="https://i.imgur.com/zckyDUU.png" /></p>
