@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>RemoteLink</title>
+<title>02DosCmd</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
 /* Author: Nicolas Hery - http://nicolashery.com */
@@ -289,52 +290,145 @@ img {
   max-width: 100%
 }
 </style>
-<base href='file:\\\H:\NRX\网络攻防\第二阶段（20套）\1、系统篇（11套）\5、菜鸟腾飞-远程控制技术\'/>
+<base href='file:\\\H:\NRX\网络攻防\第二阶段（20套）\1、系统篇（11套）\'/>
 </head>
 <body>
-<h2>远程控制</h2>
-<p><em>不同于远程协助。</em>   <br />
-   <br/>
-   <strong><em>远程控制技术的分类:</em></strong>   <br/></p>
-<ul>
-<li>正向主动型。主动发起连接请求,例如mstsc(Terminal Service client)连接Windows远程桌面(Default Port:3389, Terminal Service.)</li>
-<li>反向被动型。灰鸽子等黑客程序。生成特定服务端运行在被入侵的机器上。</li>
-</ul>
-<p><strong><em>开启3389:</em></strong> 		  	<br/></p>
-<p><strong><em>Radmin:</em></strong>  <br/></p>
-<p>使用原理:在要被控制的电脑上配置服务端r_server。客户端Radmin通过扫描,发现能被控制的服务端。 <br/>
-   <code>r_server /setup  # 安装</code>
-   <code>r_server /?      # 查看说明,使用命令行安装服务</code><br />
-   <code>net start r_server    # 开启服务</code></p>
-<p><strong><em>服务端卸载之后,发现仍然能够被控制.通过 <code>netstat -nab</code> 可以看到服务端进程仍然在运行。此时进任务管理器,结束该进程.</em></strong></p>
-<p><strong><em>自解压缩包的制作。</em></strong>制作exe文件,双击就能直接搭建r_server端。本人Win10开启防火墙之后,客户端不可以连接。</p>
-<p><img src="https://i.imgur.com/x1QnfrC.png" /> <br/></p>
-<p><img src="https://i.imgur.com/ecGG5mF.png" /> <br/></p>
-<p><img src="https://i.imgur.com/V7OQHX9.png" />  <br/></p>
-<p><img src="https://i.imgur.com/s6Y7VIM.png" />   <br/></p>
-<p><img src="https://i.imgur.com/TXA8r44.png" />  <br/></p>
-<p><img src="https://i.imgur.com/Qul7rCJ.png" />  <br/></p>
-<p><strong><em>反向型远程控制:</em></strong>被控制端主动发起与主控端的连接请求。</p>
-<p>各种远程控制软件的介绍：灰鸽子，上兴，Gh0st，rmtsvc。原理都一样。
-  如果希望更接近实战，自己买一个windows虚拟服务器，线上运行。自己可以拿机器来尝试。各种软件原理都一样，即：被控主机主动向控制服务器发起被控制请求，从而被控制。</p>
-<p><strong><em>远控软件免杀：</em></strong></p>
-<p><strong><em>远控被杀原因：</em></strong>向系统增加随机启动项，在执行例如键盘记录等敏感操作时，会调用执行特殊的系统功能函数API（正常程序一般0不会），程序在装有杀软的机器上大量的被使用。</p>
-<p>真正学会免杀要学习<strong><em>汇编知识。</em></strong></p>
-<p><strong><em>远控之防御：</em></strong></p>
-<p>首先了解远程控制的两个通性：远控需要建立TCP或UDP连接，远控软件会向系统写入至少一个启动项目或者劫持某个系统必备的正常启动项。</p>
-<p>命令：</p>
-<pre><code>  tasklist, 
-
-  netstat -nabo | find &quot;ESTABLISHED&quot;
+<h3>1. @</h3>
+<pre><code>双击bat，@开头的不会回显
+bat文件一般第一行代码:  @echo off
 </code></pre>
 
-<p>工具：</p>
-<pre><code>   icesword(反rootkit),
+<h3>2.echo</h3>
+<pre><code>echo               #查看当前回显状态
+      off/on       #打开关闭回显
+      &gt;  文件名     #重写内容
+      &gt;&gt; 文件名     #追加内容
 
-   ssm（拦截程序运行时的每个动作）
+echo  这些符号可以直接输出（+ - * / \ ( ) ? ; . , &quot; ' : :: ~ @ `）
+echo  这些字符需要在前面加^转义（^,&gt;,&gt;&gt;,&amp;,&amp;&amp;,|,||）
+echo 输出%，%的个数整除2即为输出%的个数
+
+其它： 
+echo 输出大量数据，echo作为参数，用echo发声
 </code></pre>
 
-<p>断网，删除服务，重启。</p>
+<h3>3.rem 和 ::</h3>
+<pre><code># 都来用作批处理注解。REM [comment], ::[comment]
+# 区别：打开回显，rem内容会显示。
+</code></pre>
+
+<h3>4.pause</h3>
+<pre><code># pause        &quot;按任意键继续...&quot;
+# pause &gt; nul  &quot;不显示信息，光标到下一行&quot;
+</code></pre>
+
+<h3>5.title</h3>
+<pre><code># title [sting] 指定cmd窗口标题
+# 标题高级技巧：
+# 我们编写的程序如果运行速度比较慢，那就有必要显示当前程序的运行进度给用户看，
+# 否则用户不知道程序是否还在运行？如果还在运行，需要再等待多长时间？
+# 显示进度较少采用echo和cls的组合来刷新进度显示，因为cls清除的是整个屏幕，
+# 会造成显示一闪一闪的结果。最佳选择是用title来显示进度。
+
+  @echo off
+  title 圆周率计算程序
+  echo 按任意键开始计算 &amp; pause&gt;nul
+  echo 计算进行中，进度请看标题栏...
+  set i=0
+  :loop
+  if %i% lss 10000 (
+    set /a i+=1
+    title 圆周率计算程序 当前计算到第%i%位
+    ::这里是为了更明显点看到显示的效果，所以添加一个时间延迟。
+    ping /n 1 127.1&gt;nul
+    goto :loop
+  )
+  Pause        
+</code></pre>
+
+<h3>6. color</h3>
+<pre><code># color [attr] , attr为两个十六进制数字，第一位背景，第二位文字颜色。
+</code></pre>
+
+<p><img src="https://i.imgur.com/bpNdw3H.png" />	<br/></p>
+<h3>7.mode</h3>
+<p><em>功能一，设置cmd窗口大小</em>   <br/></p>
+<pre><code> mode con [:] [cols=c][lines=n]
+</code></pre>
+
+<p><em>功能二，显示代码页</em>        <br/></p>
+<pre><code> mode con cp select=437（437表示美式英语）
+ mode con cp select=936（936表示简体中文）
+</code></pre>
+
+<h3>8.set</h3>
+<pre><code># set [variable=[string]]   
+
+    @echo off
+    set monkeyking=sunwukong
+    echo %monkeyking%
+    pause
+
+#借助/a参数，可以统一进行赋值。set /a A=B=C=D=100
+#右边的字符串为待计算的运算表达式(精确到整数)  set /a A=123,set B=456
+
+#set /p variable=[promptString]  #PromptString为提示语
+</code></pre>
+
+<h3>9.%%</h3>
+<h3>10.for</h3>
+<pre><code>FOR [-d | -l | -r | -f] %%variable IN (set) DO command [command-parameters]
+
+FOR [-d | -l | -r | -f] %%变量名IN (相关文件或命令) DO [执行命令]
+
+# 这里用%%是批处理中书写的格式，如果是用户在命令行输入的形式，输入只需一个%号。
+</code></pre>
+
+<h3>.goto</h3>
+<pre><code># goto label
+# goto :eof    #可用于退出批处理
+
+  @echo off
+  :begin
+  set /a var+=1
+  echo %var%
+  if %var% leq 3 goto begin
+  pause
+</code></pre>
+
+<h3>.exit</h3>
+<p><em>三个退出命令</em></p>
+<pre><code># exit [/b][exitCode] , goto :eof 
+</code></pre>
+
+<h3>.start</h3>
+<p><em>打开新窗口</em></p>
+<h3>.call</h3>
+<pre><code>call [[Drive:][Path] FileName [BatchParameters]] [:Label [Arguments]]
+
+  @echo off
+  echo 早上好！
+  call :noon
+  echo 晚安！
+  pause
+  :noon
+  echo 中午好！
+  :night
+  echo 晚上好！
+  pause
+  # 运行结果：
+      早上好！
+      中午好！
+      晚上好！
+      请按任意键继续. . .
+      晚安！
+      请按任意键继续. . .
+      中午好！
+      晚上好！
+      请按任意键继续. . .
+</code></pre>
+
+<h3>.shift</h3>
 
 </body>
 </html>
