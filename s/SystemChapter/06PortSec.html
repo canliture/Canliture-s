@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>06端口漏洞</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<base href='file:\\\C:\Users\Liture\Desktop\'/>
+</head>
+<body>
+<h2>系统端口安全</h2>
+<ul>
+<li>
+<p><strong><em>肉鸡(肉机)</em></strong></p>
+<p>抓鸡。</p>
+</li>
+<li>
+<p><strong><em>工具介绍</em></strong></p>
+<ul>
+<li><strong>s扫描器</strong></li>
+</ul>
+<p><em>S扫描器扫描对外开放端口</em></p>
+<blockquote>
+<p>TCP Port Scanner V1.1 By WinEggDrop</p>
+<p>Usage:   s TCP/SYN StartIP [EndIP] Ports [Threads] [/Banner] [/Save]</p>
+<p>Example: s TCP 12.12.12.12 12.12.12.254 80 512</p>
+<p>Example: s TCP 12.12.12.12 1-65535 512</p>
+<p>Example: s TCP 12.12.12.12 12.12.12.254 21,3389,5631 512</p>
+<p>Example: s TCP 12.12.12.12 21,3389,5631 512</p>
+<p>Example: s SYN 12.12.12.12 12.12.12.254 80</p>
+<p>Example: s SYN 12.12.12.12 1-65535</p>
+<p>Example: s SYN 12.12.12.12 12.12.12.254 21,80,3389</p>
+<p>Example: s SYN 12.12.12.12 21,80,3389</p>
+</blockquote>
+</li>
+<li>
+<p><strong><em>80, 8080端口</em></strong></p>
+<p>Web服务器一般开放的端口。</p>
+</li>
+<li>
+<p><strong><em>135端口</em></strong></p>
+<p>135端口就是用于远程的打开对方的telnet服务 ，用于启动与远程计算机的 RPC 连接，很容易就可以就侵入电脑。</p>
+<p><code>netstat -a      #查看是否开启135端口</code>
+<code>cmd→dcomcnfg    #操作，关闭135端口</code></p>
+<p>135抓鸡工具：先扫描主机135端口，发现处于open状态的，可以进行下面的操作。
+配置一个木马链接，被入侵主机会下载该木马程序。</p>
+</li>
+<li>
+<p><strong><em>445端口</em></strong></p>
+<blockquote>
+<p>445端口是一个毁誉参半的端口，有了它我们可以在局域网中轻松访问各种共享文件夹或共享打印机，但也正是因为有了它，黑客们才有了可乘之机，他们能通过该端口偷偷共享你的硬盘，甚至会在悄无声息中将你的硬盘格式化掉！ [1]  2017年10月，由于病毒“坏兔子”来袭，国家互联网应急中心等安全机构建议用户及时关闭计算机以及网络设备上的445和139端口</p>
+</blockquote>
+<p>漏洞：MS08-067</p>
+</li>
+<li>
+<p><strong><em>139端口</em></strong></p>
+<blockquote>
+<p>139 NetBIOS File and Print Sharing 通过这个端口进入的连接试图获得NetBIOS/SMB服务。这个协议被用于Windows&quot;文件和打印机共享&quot;和SAMBA。在Internet上共享自己的硬盘可能是最常见的问题。139属于TCP协议。</p>
+</blockquote>
+</li>
+<li>
+<p><strong><em>1433端口</em></strong></p>
+<p>1433端口是SQL Server默认的端口，SQL Server服务使用两个端口：TCP-1433、UDP-1434。其中1433用于供SQL Server对外提供服务，1434用于向请求者返回SQL Server使用了哪个TCP/IP端口。</p>
+<p>下面是应用服务器开放的端口，数据库服务器例如mysql，oracle，sql server的弱口令，</p>
+</li>
+<li>
+<p><strong><em>1521端口</em></strong></p>
+<p>1521端口是oracle默认的端口。</p>
+</li>
+<li>
+<p><strong><em>3306端口</em></strong></p>
+<p>3306端口是mysql默认的端口。</p>
+</li>
+<li>
+<p><strong><em>3389端口</em></strong></p>
+<p>远程桌面连接。mstsc</p>
+</li>
+<li>
+<p><strong><em>4899端口</em></strong></p>
+<p>Radmin远控默认端口</p>
+</li>
+<li>
+<p><strong><em>5900端口</em></strong></p>
+<p>vnc远控默认端口</p>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
